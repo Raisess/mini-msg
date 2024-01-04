@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::core::transporter::{Message, Transporter, mount_message};
+use crate::core::transporter::{Message, Transporter};
 
 pub struct GenericTransporter {
   messages: HashMap<String, Vec<Message>>,
@@ -15,19 +15,16 @@ impl GenericTransporter {
 }
 
 impl Transporter for GenericTransporter {
-  fn publish(
-    &mut self,
-    from_node_id: &str,
-    to_node_id: &str,
-    content: &str
-  ) -> () {
+  fn publish(&mut self, from_node_id: &str, to_node_id: &str, content: &str) {
+    let message = Message::new(from_node_id, content);
+
     if let Some(vector) = self.messages.get_mut(to_node_id) {
-      return vector.push(mount_message(from_node_id, content));
+      return vector.push(message);
     }
 
     self.messages.insert(
       to_node_id.to_string(),
-      Vec::from([mount_message(from_node_id, content)]),
+      Vec::from([message]),
     );
   }
 

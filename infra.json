@@ -1,0 +1,9 @@
+[
+  {
+    "name": "redis",
+    "image": "docker.io/redis:alpine",
+    "ports": [
+      [6379, 6379, "tcp"]
+    ]
+  }
+]

@@ -22,7 +22,7 @@ impl Node {
     return &self.id;
   }
 
-  pub fn send(&self, transporter: &mut dyn Transporter, to: &str, content: &str) -> () {
+  pub fn send(&self, transporter: &mut dyn Transporter, to: &str, content: &str) {
     transporter.publish(self.id(), to, content);
   }
 
