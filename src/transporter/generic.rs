@@ -41,3 +41,10 @@ impl Transporter for GenericTransporter {
     return None;
   }
 }
+
+#[test]
+fn test() {
+  let mut transporter = GenericTransporter::new();
+  transporter.publish("0", "1", "Hello");
+  assert_eq!(transporter.consume("1").unwrap().content, "Hello");
+}
